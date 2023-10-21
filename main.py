@@ -46,9 +46,9 @@ def crear_producto(producto: Producto):
 @app.put('/producto/{producto_id}', response_model=Producto, status_code=status.HTTP_200_OK)
 def actualiza_un_producto(producto_id: int, producto: Producto):
     actualiza_un_producto = db.query(models.Producto).filter(models.Producto.id == producto_id).first()
-    actualiza_un_producto.name = producto.name
-    actualiza_un_producto.price = producto.price
-    actualiza_un_producto.description = producto.description
+    actualiza_un_producto.nombre = producto.nombre
+    actualiza_un_producto.precio = producto.precio
+    actualiza_un_producto.descripcion = producto.descripcion
     actualiza_un_producto.en_oferta = producto.en_oferta
 
     db.commit()
