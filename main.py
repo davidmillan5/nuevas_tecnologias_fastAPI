@@ -54,3 +54,23 @@ def actualiza_un_producto(producto_id: int, producto: Producto):
     db.commit()
 
     return actualiza_un_producto
+
+
+
+@app.get('/producto/{producto_id}', response_model=Producto, status_code=status.HTTP_200_OK)
+def traer_un_producto(producto_id: int):
+    producto = db.query(models.Producto).filter(models.Producto.id == producto_id).first()
+    return producto
+
+
+@app.delete('/producto/{producto_id}')
+def borrar_un_producto(producto_id: int):
+    borrar_un_producto = db.query(models.Producto).filter(models.Producto.id == producto_id).first()
+
+    if borrar_un_producto is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Resource Not Found")
+
+    db.delete(borrar_un_producto)
+    db.commit()
+
+    return borrar_un_producto
